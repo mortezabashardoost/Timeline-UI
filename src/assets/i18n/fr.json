@@ -1,0 +1,22 @@
+{
+    "common": {
+        "header": {
+            "link1":""
+        },
+        "footer":{
+            "copyright":"© kjhdsa dsjahd dsadasd"
+        }
+    },
+    "pageNotFound": {
+        "header": "FLEX VM ELA"
+    },
+    "page1": {
+        "header": "FLEX VM ELA"
+    },
+    "page2": {
+        "header": "FLEX VM ELA"
+    },
+    "errorMessages": {
+        "header": "FLEX VM ELA"
+    }
+}

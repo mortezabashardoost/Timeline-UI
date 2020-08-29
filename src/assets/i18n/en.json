@@ -1,0 +1,27 @@
+{
+    "common": {
+        "header": {
+            "link1":""
+        },
+        "footer":{
+            "copyright":"© Copyright 2020. All rights reserved."
+        }
+    },
+    "sidenav": {
+        "header": "FLEX VM ELA",
+        "dashboard":"Dashboard",
+        "reports": "Reports"
+    },
+    "pageNotFound": {
+        "header": "FLEX VM ELA"
+    },
+    "page1": {
+        "header": "FLEX VM ELA"
+    },
+    "page2": {
+        "header": "FLEX VM ELA"
+    },
+    "errorMessages": {
+        "header": "FLEX VM ELA"
+    }
+}
