@@ -18,10 +18,10 @@ const routes: Routes = [
   {
     path: '',
     children: [
-        // {
-        //     path: 'dashboard',
-        //     loadChildren: () => import('@flexvm/dashboard/dashboard.module').then(mod => mod.DashboardModule),
-        // },
+        {
+            path: 'measure',
+            loadChildren: () => import('./features/measure/measure.module').then(mod => mod.MeasureModule),
+        },
         {
             path: '',
             redirectTo: '', //`${DashboardURL.DASHBOARD}/${DashboardURL.LIST}`,
