@@ -28,7 +28,6 @@ export class MeasureService {
 
   // fetch measures
   fetchMeasures$(): Observable<Array<Measure>> {
-
     // Clearing the cachced data
     this.measures = null;
 
@@ -47,7 +46,7 @@ export class MeasureService {
 
           // Save the result in cache
           // TODO: check if this is requried
-          this.setMeasureData(next);
+          this.setMeasureData(next.filter(d => d.deleted === false));
           this.measureListFetched$.next(true);
         },
         catchError(this.utilService.handleError<Array<Measure>>('fetchMeasures$', []))
@@ -84,27 +83,45 @@ export class MeasureService {
       );
   }
 
-  // patchConfiguration$
-  // patchConfiguration$(id: number, reqData: ConfigurationCreateModel): Observable<HttpResponseModel<Configuration>> {
+  // updateMeasure$
+  updateMeasure$(reqData: Measure): Observable<Measure> {
+    return this.http.put<Measure>(Config.Measures + '/' + reqData.id, reqData)
+      .pipe(
+        tap(
+          (next: Measure) => {
+            // Check the response error
+            if (next) {
+              // Update Array with modified data
+              this.measures = this.measures.map(
+                m => m.id === reqData.id ? { ...m, name: reqData.name } : m
+              );
+            }
+          },
+        ),
+        catchError(
+          this.handleError<Measure>(`updateMeasure`, null)
+        )
+      );
+  }
 
-  //   this.logger.debug('configuration-create-view - fetchConfigProgram$ - id - reqData', id,reqData);
-
-  //   // Fetch data from API
-  //   //return of(fakeConfigurationCreateResultModel)
-  //   return this.http.put<HttpResponseModel<Configuration>>(Config.Configurations + '/' + id, reqData)
-  //     .pipe(
-  //       tap(
-  //         next => {
-  //           // Check the response error
-  //           if (next.status.returnCode !== 1) {
-  //             return;
-  //           }
-  //           // Save the result in cache
-  //           this.cachedConfigCreateResultModel = next.result;
-  //         },
-  //       ),
-  //     );
-  // }
+  // deleteMeasure$
+  deleteMeasure$(reqData: Measure): Observable<Measure> {
+    return this.http.put<Measure>(Config.Measures + '/' + reqData.id, reqData)
+      .pipe(
+        tap(
+          (next: Measure) => {
+            // Check the response error
+            if (next) {
+              // Update Array with modified data
+              this.measures = this.measures.filter(m => m.id !== reqData.id);
+            }
+          },
+        ),
+        catchError(
+          this.handleError<Measure>(`deleteMeasure`, null)
+        )
+      );
+  }
 
 
   private handleError<T>(operation = 'operation', result?: T): any {

@@ -66,30 +66,91 @@ export class MeasureListViewComponent implements OnInit, OnDestroy {
 
   // initListener
   initListener(): void {
-
     this.subscription.add(
       this.measureService.newMeasureSubmitted$.subscribe(
         () => {
-          this.measureService.createMeasure$(this.measure)
-            .subscribe(
-              (result: any) => {
-                if (result) {
-                  this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Measure Created', life: 3000 });
-                } else {
-                  this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: 'Something went wrong while creating new measure.',
-                    life: 3000
-                  });
-                }
-                // Turn off button spinner
-                this.saveBtnLoading = false;
-                // Refresh List
-                this.measureList = this.measureService.measures;
-                this.listLoading = false;
-              },
-            );
+          if (this.measure.id) {
+            if (this.measure.deleted) {
+              this.measureService.deleteMeasure$(this.measure)
+                .subscribe(
+                  (result: any) => {
+                    if (result) {
+                      this.messageService.add({
+                        severity: 'success',
+                        summary: 'Successful',
+                        detail: 'The measure deleted successfully',
+                        life: 3000
+                      });
+                    } else {
+                      this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'Failed to delete the measure',
+                        life: 3000
+                      });
+                    }
+                    // Turn off button spinner
+                    this.saveBtnLoading = false;
+                    // Refresh List
+                    this.measureList = this.measureService.measures;
+                    this.listLoading = false;
+                  },
+                );
+            }
+            else {
+              this.measureService.updateMeasure$(this.measure)
+                .subscribe(
+                  (result: any) => {
+                    if (result) {
+                      this.messageService.add({
+                        severity: 'success',
+                        summary: 'Successful',
+                        detail: 'The measure updated successfully',
+                        life: 3000
+                      });
+                    } else {
+                      this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'Failed to update the measure',
+                        life: 3000
+                      });
+                    }
+                    // Turn off button spinner
+                    this.saveBtnLoading = false;
+                    // Refresh List
+                    this.measureList = this.measureService.measures;
+                    this.listLoading = false;
+                  },
+                );
+            }
+          } else {
+            this.measureService.createMeasure$(this.measure)
+              .subscribe(
+                (result: any) => {
+                  if (result) {
+                    this.messageService.add({
+                      severity: 'success',
+                      summary: 'Successful',
+                      detail: 'Measure Created',
+                      life: 3000
+                    });
+                  } else {
+                    this.messageService.add({
+                      severity: 'error',
+                      summary: 'Error',
+                      detail: 'Something went wrong while creating new measure.',
+                      life: 3000
+                    });
+                  }
+                  // Turn off button spinner
+                  this.saveBtnLoading = false;
+                  // Refresh List
+                  this.measureList = this.measureService.measures;
+                  this.listLoading = false;
+                },
+              );
+          }
         },
       )
     );
@@ -108,10 +169,6 @@ export class MeasureListViewComponent implements OnInit, OnDestroy {
     this.submitted = false;
   }
 
-  message(): void {
-    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-  }
-
   saveMeasure(): void {
     this.submitted = true;
 
@@ -119,11 +176,27 @@ export class MeasureListViewComponent implements OnInit, OnDestroy {
       this.saveBtnLoading = true;
       this.measure.deleted = false;
       this.measureService.newMeasureSubmitted$.next(true);
-
-      this.measureList = [...this.measureList];
       this.measureDialog = false;
       this.measure = { deleted: true };
     }
+  }
+
+  editMeasure(measureToEdit: Measure): void {
+    this.measure = { ...measureToEdit };
+    this.measureDialog = true;
+  }
+
+  deleteMeasure(measureToDelete: Measure): void {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + measureToDelete.name + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.measure = { id: measureToDelete.id, name: measureToDelete.name, deleted: true };
+        this.measureService.newMeasureSubmitted$.next(true);
+        this.measure = { deleted: true };
+      }
+    });
   }
 
 }
