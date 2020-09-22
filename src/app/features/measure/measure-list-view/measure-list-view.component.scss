@@ -1,0 +1,23 @@
+:host ::ng-deep {
+  .p-dialog .product-image {
+    width: 150px;
+    margin: 0 auto 2rem auto;
+    display: block;
+  }
+  .p-datatable .p-datatable-header > tr > td,
+  .p-datatable-tbody > tr > td {
+    text-align: left;
+    border: 1px solid #e9ecef;
+    border-width: 0 0 1px 0;
+    padding: 0.5rem 1rem;
+  }
+  .p-datatable-header {
+    padding: 0.5rem 1rem;
+  }
+  .p-toolbar {
+    padding: 10px 16px;
+  }
+  .p-mb-4 {
+    margin-bottom: 0.5rem !important;
+  }
+}

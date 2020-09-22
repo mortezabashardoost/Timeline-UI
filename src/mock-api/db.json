@@ -1,22 +1,74 @@
 {
-  "teams": [
+  "measure": [
     {
       "id": 1,
-      "name": "FC Barcelona",
-      "coach": "Ernesto Valverde",
-      "description": "The best football team in the world!"
+      "name": "Love",
+      "deleted": "false"
     },
     {
       "id": 2,
-      "name": "Real Madrid",
-      "coach": "Zinedine Zidane",
-      "description": "The worst football team in the world!"
+      "name": "Mistake",
+      "deleted": "true"
     },
     {
       "id": 3,
-      "name": "Arsenal",
-      "coach": "Morteza",
-      "description": "The best football team"
+      "name": "Happiness",
+      "deleted": "false"
+    },
+    {
+      "deleted": false,
+      "name": "rrrrrrrr",
+      "id": 4
+    },
+    {
+      "deleted": false,
+      "name": "wwwww",
+      "id": 5
+    },
+    {
+      "deleted": false,
+      "name": "zzzz",
+      "id": 6
+    },
+    {
+      "deleted": false,
+      "name": "e",
+      "id": 7
+    },
+    {
+      "id": 8,
+      "name": "Mistake",
+      "deleted": "true"
+    },
+    {
+      "id": 9,
+      "name": "Happiness",
+      "deleted": "false"
+    },
+    {
+      "deleted": false,
+      "name": "rrrrrrrr",
+      "id": 10
+    },
+    {
+      "deleted": false,
+      "name": "wwwww",
+      "id": 11
+    },
+    {
+      "deleted": false,
+      "name": "zzzz",
+      "id": 12
+    },
+    {
+      "deleted": false,
+      "name": "e",
+      "id": 13
+    },
+    {
+      "deleted": false,
+      "name": "saasds",
+      "id": 14
     }
   ]
 }

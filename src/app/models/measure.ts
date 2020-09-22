@@ -1,5 +1,11 @@
 export interface Measure {
-    measureId: number;
-    name: string;
+    id?: number;
+    name?: string;
     deleted: boolean;
+}
+
+// URLs
+export enum MeasureURL {
+    BASE = 'measure',
+    LIST = 'list'
 }
